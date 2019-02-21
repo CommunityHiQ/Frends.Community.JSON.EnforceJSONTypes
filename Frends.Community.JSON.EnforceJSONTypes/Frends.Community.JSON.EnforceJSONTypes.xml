@@ -24,6 +24,26 @@
             Possible JSON data types
             </summary>
         </member>
+        <member name="F:Frends.Community.JSON.EnforceJSONTypes.JsonDataType.String">
+            <summary>
+            JSON string type
+            </summary>
+        </member>
+        <member name="F:Frends.Community.JSON.EnforceJSONTypes.JsonDataType.Number">
+            <summary>
+            JSON number type
+            </summary>
+        </member>
+        <member name="F:Frends.Community.JSON.EnforceJSONTypes.JsonDataType.Boolean">
+            <summary>
+            JSON boolean type
+            </summary>
+        </member>
+        <member name="F:Frends.Community.JSON.EnforceJSONTypes.JsonDataType.Array">
+            <summary>
+            JSON array type
+            </summary>
+        </member>
         <member name="T:Frends.Community.JSON.EnforceJSONTypes.JsonTypeEnforcer">
             <summary>
             JsonTypeEnforcer contains the EnforceJsonTypes task

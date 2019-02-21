@@ -23,7 +23,8 @@ namespace Frends.Community.JSON.EnforceJSONTypes
             {
                 foreach (var jValue in jObject.SelectTokens(rule.JsonPath).OfType<JValue>())
                 {
-                    jValue.Value = ChangeDataType(jValue, rule.DataType);
+                    
+                    ChangeDataType(jValue, rule.DataType);
                 }
             }
 
@@ -36,27 +37,44 @@ namespace Frends.Community.JSON.EnforceJSONTypes
         /// <param name="value">JValue to change</param>
         /// <param name="dataType">New data type</param>
         /// <returns></returns>
-        internal static object ChangeDataType(JValue value, JsonDataType dataType)
+        internal static void ChangeDataType(JValue value, JsonDataType dataType)
         {
+            object newValue = value.Value;
             try
             {
                 switch (dataType)
                 {
                     case JsonDataType.String:
-                        return value.Value<string>();
+                        newValue = value.Value<string>();
+                        break;
                     case JsonDataType.Number:
-                        if (value.Value == null || (value.Value as string) == "") return null;
-                        return value.Value<double>();
+                        if (value.Value == null || (value.Value as string) == "") newValue = null;
+                        else newValue = value.Value<double>();
+                        break;
                     case JsonDataType.Boolean:
-                        if (value.Value == null || (value.Value as string) == "") return null;
-                        return value.Value<bool>();
+                        if (value.Value == null || (value.Value as string) == "") newValue = null;
+                        else newValue = value.Value<bool>();
+                        break;
+                    case JsonDataType.Array:
+                        // Here we actually need to replace the JValue with a JArray that would contain the current JValue
+                        var jProperty = value.Parent as JProperty;
+                        if (jProperty != null)
+                        {
+                            var jArray = new JArray();
+                            jArray.Add(value);
+                            jProperty.Value = jArray;
+                        }
+
+                        break;
                     default:
                         throw new Exception($"Unknown JSON data type {dataType}");
                 }
+
+                if (dataType != JsonDataType.Array) value.Value = newValue;
             }
             catch
             {
-                return value.Value;
+                // do nothing
             }
         }
     }

@@ -5,8 +5,21 @@
     /// </summary>
     public enum JsonDataType
     {
+        /// <summary>
+        /// JSON string type
+        /// </summary>
         String,
+        /// <summary>
+        /// JSON number type
+        /// </summary>
         Number,
-        Boolean
+        /// <summary>
+        /// JSON boolean type
+        /// </summary>
+        Boolean,
+        /// <summary>
+        /// JSON array type
+        /// </summary>
+        Array
     }
 }
