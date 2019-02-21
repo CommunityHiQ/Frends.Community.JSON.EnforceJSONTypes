@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
@@ -11,20 +12,26 @@ namespace Frends.Community.JSON.EnforceJSONTypes.Tests
         public void EnforceJsonTypesTest()
         {
             var json = @"{
-    ""hello"": ""123"",
-    ""world"": ""true"",
+  ""hello"": ""123"",
+  ""world"": ""true"",
 }";
             var result = JsonTypeEnforcer.EnforceJsonTypes(
-                json,
                 new EnforceJsonTypesParameters
                 {
+                    Json = json,
                     Rules = new[]
                     {
                         new JsonTypeRule("$.hello", JsonDataType.Number),
                         new JsonTypeRule("$.world", JsonDataType.Boolean)
                     }
                 });
-            Assert.AreEqual(result, json);
+            var expected = @"{
+  ""hello"": 123.0,
+  ""world"": true
+}";
+            Console.WriteLine(expected);
+            Console.WriteLine(result);
+            Assert.AreEqual(expected, result);
         }
 
         [TestMethod]

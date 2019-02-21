@@ -12,13 +12,13 @@ namespace Frends.Community.JSON.EnforceJSONTypes
         /// <summary>
         /// This task allows enforcing types in JSON documents by giving an array of
         /// JSON paths and corresponding JSON types.
+        /// Documentation: https://github.com/CommunityHiQ/Frends.Community.JSON.EnforceJSONTypes
         /// </summary>
-        /// <param name="json">JSON document</param>
         /// <param name="parameters">Parameters</param>
         /// <returns></returns>
-        public static string EnforceJsonTypes(string json, EnforceJsonTypesParameters parameters)
+        public static string EnforceJsonTypes(EnforceJsonTypesParameters parameters)
         {
-            var jObject = JObject.Parse(json);
+            var jObject = JObject.Parse(parameters.Json);
             foreach (var rule in parameters.Rules)
             {
                 foreach (var jValue in jObject.SelectTokens(rule.JsonPath).OfType<JValue>())
