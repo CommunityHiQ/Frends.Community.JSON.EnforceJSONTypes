@@ -44,7 +44,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 Clone a copy of the repo
 
-`git clone https://github.com/CommunityHiQ/Frends.Community.JWT.CreateToken`
+`git clone https://github.com/CommunityHiQ/Frends.Community.JSON.EnforceJSONTypes`
 
 Restore dependencies
 
@@ -75,4 +75,4 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 
 | Version             | Changes                 |
 | ---------------------| ---------------------|
-| 1.0.0 | Initial version of EnforceJSONTypes task |
+| 1.0.2 | Initial version of EnforceJSONTypes task |
