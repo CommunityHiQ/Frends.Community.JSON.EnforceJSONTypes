@@ -260,3 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 /.gitattributes
+
+/nuspec/Frends.Community.JSON.EnforceJSONTypes.1.0.8/**/*.*
