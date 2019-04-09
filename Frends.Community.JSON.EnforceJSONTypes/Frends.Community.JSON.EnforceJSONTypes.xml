@@ -58,7 +58,7 @@
             <param name="parameters">Parameters</param>
             <returns></returns>
         </member>
-        <member name="M:Frends.Community.JSON.EnforceJSONTypes.JsonTypeEnforcer.ChangeDataType(Newtonsoft.Json.Linq.JValue,Frends.Community.JSON.EnforceJSONTypes.JsonDataType)">
+        <member name="M:Frends.Community.JSON.EnforceJSONTypes.JsonTypeEnforcer.ChangeDataType(Newtonsoft.Json.Linq.JToken,Frends.Community.JSON.EnforceJSONTypes.JsonDataType)">
             <summary>
             Changes value of JValue object to the desired JSON data type
             </summary>

@@ -21,10 +21,9 @@ namespace Frends.Community.JSON.EnforceJSONTypes
             var jObject = JObject.Parse(parameters.Json);
             foreach (var rule in parameters.Rules)
             {
-                foreach (var jValue in jObject.SelectTokens(rule.JsonPath).OfType<JValue>())
+                foreach (var jToken in jObject.SelectTokens(rule.JsonPath))
                 {
-                    
-                    ChangeDataType(jValue, rule.DataType);
+                    ChangeDataType(jToken, rule.DataType);
                 }
             }
 
@@ -37,7 +36,40 @@ namespace Frends.Community.JSON.EnforceJSONTypes
         /// <param name="value">JValue to change</param>
         /// <param name="dataType">New data type</param>
         /// <returns></returns>
-        internal static void ChangeDataType(JValue value, JsonDataType dataType)
+        internal static void ChangeDataType(JToken value, JsonDataType dataType)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            if (dataType == JsonDataType.Array)
+            {
+                ChangeJTokenIntoArray(value);
+                return;
+            }
+
+            var jValue = value as JValue;
+            if (jValue == null)
+            {
+                throw new Exception($"This task can only convert JValue nodes' types and turn JTokens into JArrays, but the node type provided is {value.GetType().Name}");
+            }
+
+            ChangeDataTypeSimple(jValue, dataType);
+        }
+
+        private static void ChangeJTokenIntoArray(JToken jToken)
+        {
+            var jProperty = jToken.Parent as JProperty;
+            if (jProperty != null)
+            {
+                var jArray = new JArray();
+                jArray.Add(jToken);
+                jProperty.Value = jArray;
+            }
+        }
+
+        private static void ChangeDataTypeSimple(JValue value, JsonDataType dataType)
         {
             object newValue = value.Value;
             try

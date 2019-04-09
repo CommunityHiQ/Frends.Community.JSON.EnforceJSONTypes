@@ -15,7 +15,8 @@ namespace Frends.Community.JSON.EnforceJSONTypes.Tests
             var json = @"{
   ""hello"": ""123"",
   ""world"": ""true"",
-  ""bad_arr"": ""hello, world""
+  ""bad_arr"": ""hello, world"",
+  ""bad_arr_2"": { ""prop1"": 123 }
 }";
             var result = JsonTypeEnforcer.EnforceJsonTypes(
                 new EnforceJsonTypesParameters
@@ -26,6 +27,7 @@ namespace Frends.Community.JSON.EnforceJSONTypes.Tests
                         new JsonTypeRule("$.hello", JsonDataType.Number),
                         new JsonTypeRule("$.world", JsonDataType.Boolean),
                         new JsonTypeRule("$.bad_arr", JsonDataType.Array),
+                        new JsonTypeRule("$.bad_arr_2", JsonDataType.Array),
                     }
                 });
             var expected = @"{
@@ -33,6 +35,11 @@ namespace Frends.Community.JSON.EnforceJSONTypes.Tests
   ""world"": true,
   ""bad_arr"": [
     ""hello, world""
+  ],
+  ""bad_arr_2"": [
+    {
+      ""prop1"": 123
+    }
   ]
 }";
             Console.WriteLine(expected);
@@ -123,6 +130,21 @@ namespace Frends.Community.JSON.EnforceJSONTypes.Tests
             Assert.AreEqual(1, jArray.Count);
             Assert.AreEqual(111, jArray[0]);
         }
+
+        [TestMethod]
+        public void ChangeDataTypeTest_ArraysWithComplexObjects()
+        {
+            // Array
+            var jObject = JObject.Parse(@"{
+  ""arr"": { ""prop1"": 111 }
+}");
+            var jToken = jObject.SelectTokens("$.arr").First();
+            JsonTypeEnforcer.ChangeDataType(jToken, JsonDataType.Array);
+            var jArray = (JArray)jObject.SelectToken("$.arr");
+            Assert.AreEqual(1, jArray.Count);
+            Assert.AreEqual(111, jArray[0]["prop1"].Value<int>());
+        }
+
 
         [TestMethod]
         public void TestArrays()
