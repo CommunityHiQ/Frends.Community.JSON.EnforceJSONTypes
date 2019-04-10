@@ -60,6 +60,7 @@ namespace Frends.Community.JSON.EnforceJSONTypes
 
         private static void ChangeJTokenIntoArray(JToken jToken)
         {
+            if (jToken is JArray) return;
             var jProperty = jToken.Parent as JProperty;
             if (jProperty != null)
             {
@@ -81,7 +82,12 @@ namespace Frends.Community.JSON.EnforceJSONTypes
                         break;
                     case JsonDataType.Number:
                         if (value.Value == null || (value.Value as string) == "") newValue = null;
-                        else newValue = value.Value<double>();
+                        else
+                        {
+                            var stringValue = value.Value<string>();
+                            if (stringValue.Contains(".")) newValue = value.Value<double>();
+                            else newValue = value.Value<int>();
+                        }
                         break;
                     case JsonDataType.Boolean:
                         if (value.Value == null || (value.Value as string) == "") newValue = null;
