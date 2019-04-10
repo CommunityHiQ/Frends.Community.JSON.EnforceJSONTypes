@@ -77,3 +77,4 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 | ---------------------| ---------------------|
 | 1.0.2 | Initial version of EnforceJSONTypes task |
 | 1.0.3 | Fix issue with converting JTokens into JArrays |
+| 1.0.4 | Fixing issue with double arrays produces when forcing array types, basic int data type recognition in serialization step added |
