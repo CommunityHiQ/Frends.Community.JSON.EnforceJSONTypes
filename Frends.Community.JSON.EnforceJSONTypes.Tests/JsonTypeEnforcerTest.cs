@@ -14,9 +14,12 @@ namespace Frends.Community.JSON.EnforceJSONTypes.Tests
         {
             var json = @"{
   ""hello"": ""123"",
+  ""hello_2"": ""123.5"",
   ""world"": ""true"",
   ""bad_arr"": ""hello, world"",
-  ""bad_arr_2"": { ""prop1"": 123 }
+  ""bad_arr_2"": { ""prop1"": 123 },
+  ""good_arr"": [ ""hello, world"" ],
+  ""good_arr_2"": [ { ""prop1"": 123 } ],
 }";
             var result = JsonTypeEnforcer.EnforceJsonTypes(
                 new EnforceJsonTypesParameters
@@ -25,18 +28,30 @@ namespace Frends.Community.JSON.EnforceJSONTypes.Tests
                     Rules = new[]
                     {
                         new JsonTypeRule("$.hello", JsonDataType.Number),
+                        new JsonTypeRule("$.hello_2", JsonDataType.Number),
                         new JsonTypeRule("$.world", JsonDataType.Boolean),
                         new JsonTypeRule("$.bad_arr", JsonDataType.Array),
                         new JsonTypeRule("$.bad_arr_2", JsonDataType.Array),
+                        new JsonTypeRule("$.good_arr", JsonDataType.Array),
+                        new JsonTypeRule("$.good_arr_2", JsonDataType.Array),
                     }
                 });
             var expected = @"{
-  ""hello"": 123.0,
+  ""hello"": 123,
+  ""hello_2"": 123.5,
   ""world"": true,
   ""bad_arr"": [
     ""hello, world""
   ],
   ""bad_arr_2"": [
+    {
+      ""prop1"": 123
+    }
+  ],
+  ""good_arr"": [
+    ""hello, world""
+  ],
+  ""good_arr_2"": [
     {
       ""prop1"": 123
     }
