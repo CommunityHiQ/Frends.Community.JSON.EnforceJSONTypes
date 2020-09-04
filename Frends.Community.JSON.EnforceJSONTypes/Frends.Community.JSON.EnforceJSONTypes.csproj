@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net471;netstandard2.0</TargetFrameworks>
@@ -7,10 +7,7 @@
     <Authors>HiQ Finland</Authors>
     <Description>Frends EnforceJSONTypes</Description>
     <RepositoryUrl>https://github.com/CommunityHiQ/Frends.Community.JSON.EnforceJSONTypes</RepositoryUrl>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>.\Frends.Community.JSON.EnforceJSONTypes\Frends.Community.JSON.EnforceJSONTypes.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\netstandard2.0\Frends.Community.JSON.EnforceJSONTypes.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
