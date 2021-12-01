@@ -1,3 +1,5 @@
+This repository has been archived and the task has been moved to https://github.com/CommunityHiQ/Frends.Community.JSON
+
 # Frends.Community.JSON.EnforceJSONTypes
 Frends task for enforcing types in JSON documents. The main use case is when you e.g. convert XML into JSON and you lose all the type info in the resulting JSON document. With this task you can restore the types inside the JSON document.
 
